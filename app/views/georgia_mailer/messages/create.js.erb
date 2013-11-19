@@ -1,0 +1,18 @@
+// Clear previous errors and alerts
+$('input, textarea, select').closest('.control-group').removeClass('error');
+$('form#new_message .alert').remove()
+
+<% if @message.valid? %>
+
+  $('form#new_message')[0].reset();
+  $('form#new_message').prepend("<div class='alert alert-success'><a class='close' href='#' data-dismiss='alert'>×</a><%= t('.thank-you') %></div>");
+
+<% else %>
+
+  <% @message.errors.each do |error, message| %>
+    $('form#new_message #message_<%= error.to_s %>').closest('.control-group').addClass('error');
+  <% end %>
+
+  $('form#new_message').prepend("<div class='alert alert-error'><a class='close' href='#' data-dismiss='alert'>×</a><%= t('.oups') %><br /><%= @message.errors.full_messages.join('. ') %></div>");
+
+<% end %>
