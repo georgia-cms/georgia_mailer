@@ -1,18 +1,18 @@
 <%= form_for GeorgiaMailer::Message.new, as: :message, url: georgia_mailer.messages_path, remote: true, html: {class: 'form-horizontal'} do |f| %>
   <div class="form-group">
-    <%= f.label :name %>
+    <%= f.label :name, class: 'control-label' %>
     <%= f.text_field :name, class: 'form-control' %>
   </div>
   <div class="form-group">
-    <%= f.label :email %>
+    <%= f.label :email, class: 'control-label' %>
     <%= f.text_field :email, class: 'form-control' %>
   </div>
   <div class="form-group">
-    <%= f.label :subject %>
+    <%= f.label :subject, class: 'control-label' %>
     <%= f.text_field :subject, class: 'form-control' %>
   </div>
   <div class="form-group">
-    <%= f.label :message %>
+    <%= f.label :message, class: 'control-label' %>
     <%= f.text_area :message, class: 'form-control' %>
   </div>
   <%= f.submit 'Submit', class: 'btn btn-primary' %>
