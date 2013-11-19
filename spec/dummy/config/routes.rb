@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
 
-  mount GeorgiaMailer::Engine => "/georgia_mailer"
+  mount GeorgiaMailer::Engine => '/mailer'
+
 end
