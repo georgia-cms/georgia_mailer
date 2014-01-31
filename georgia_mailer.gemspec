@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.summary     = "Handles Georgia Messages, SPAM, contact forms, etc."
   s.description = "GeorgiaMailer works essentially with Georgia CMS to provide spam-free contact forms, email notifications, Sendgrid integration, and so on."
 
-  s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
+  s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.md"]
 
   s.add_dependency "rails", ">= 3.2.6"
   s.add_dependency "georgia"
