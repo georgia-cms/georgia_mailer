@@ -4,11 +4,30 @@ Extension to Georgia CMS to store and send messages. Messages will be treated fo
 
 Make sure you have a working Georgia installation before proceding with these instructions.
 
+### Installation
+
+Add migrations and migrate
+
+    rake railties:install:migrations
+    rake db:migrate
+
+If you selected ElasticSearch as your indexer, create the GeorgiaMailer::Message index:
+
+    rake environment tire:import CLASS=GeorgiaMailer::Message FORCE=true
+
 ### Heroku
+
+Add Redis addon for Sidekiq
+
+    heroku addons:add redistogo
 
 Generate GeorgiaMailer::Message index:
 
     heroku run rake environment tire:import CLASS=GeorgiaMailer::Message FORCE=true
+
+Add sidekiq to your Procfile:
+
+    worker: bundle exec sidekiq
 
 ### Spam filtering
 
