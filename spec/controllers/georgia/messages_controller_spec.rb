@@ -1,10 +1,10 @@
 require 'spec_helper'
 
-describe GeorgiaMailer::Georgia::MessagesController do
+describe Georgia::MessagesController do
   include Devise::TestHelpers
 
   before :all do
-    @page = create(:georgia_mailer_message)
+    @message = create(:georgia_mailer_message)
   end
 
   before :each do
@@ -25,7 +25,7 @@ describe GeorgiaMailer::Georgia::MessagesController do
   describe "GET index" do
 
     it "should redirect to search" do
-      get :index, use_route: :admin, id: @page.id
+      get :index, use_route: :admin
       response.should be_redirect
     end
 
@@ -34,7 +34,7 @@ describe GeorgiaMailer::Georgia::MessagesController do
   describe "GET show" do
 
     it "should redirect to edit" do
-      get :show, use_route: :admin, id: @page.id
+      get :show, use_route: :admin, id: @message.id
       response.should be_redirect
     end
 
