@@ -1,5 +1,11 @@
 GeorgiaMailer::Engine.routes.draw do
 
+  resources :messages, only: :create
+
+end
+
+Georgia::Engine.routes.draw do
+
   resources :messages do
     collection do
       get :search
@@ -10,4 +16,5 @@ GeorgiaMailer::Engine.routes.draw do
       get :ham
     end
   end
+
 end
