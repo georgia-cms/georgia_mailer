@@ -2,6 +2,14 @@
 
 Extension to Georgia CMS to store and send messages. Messages will be treated for spam before being sent to you.
 
+Make sure you have a working Georgia installation before proceding with these instructions.
+
+### Heroku
+
+Generate GeorgiaMailer::Message index:
+
+    heroku run rake environment tire:import CLASS=GeorgiaMailer::Message FORCE=true
+
 ### Spam filtering
 
 To avoid pesky spammers, Georgia Mailer uses Akismet system to filter spam messages.
