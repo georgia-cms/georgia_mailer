@@ -1,7 +1,7 @@
-class CreateGeorgiaMailerMessages < ActiveRecord::Migration
+class CreateGeorgiaMessages < ActiveRecord::Migration
 
   def change
-    create_table :georgia_mailer_messages do |t|
+    create_table :georgia_messages do |t|
       t.string   :name
       t.string   :email
       t.string   :phone

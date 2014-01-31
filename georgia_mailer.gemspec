@@ -15,16 +15,10 @@ Gem::Specification.new do |s|
 
   s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
 
-  s.add_dependency "rails", "~> 3.2.15"
-  s.add_dependency 'sunspot_rails'
+  s.add_dependency "rails", ">= 3.2.6"
+  s.add_dependency "georgia"
   s.add_dependency "sendgrid"
   s.add_dependency "rakismet"
-  s.add_dependency "carrierwave"
-  s.add_dependency "fog"
-  s.add_dependency "unf"
+  s.add_dependency 'sidekiq'
 
-  s.add_development_dependency "sqlite3"
-  s.add_development_dependency "letter_opener"
-  s.add_development_dependency "thin"
-  s.add_development_dependency "debugger"
 end
