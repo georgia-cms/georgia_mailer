@@ -4,7 +4,7 @@ require 'spec_helper'
 describe GeorgiaMailer::MessagesController do
 
   before :each do
-    SpamWorker.stub(:perform_async).and_return(true)
+    GeorgiaMailer::SpamWorker.stub(:perform_async).and_return(true)
   end
 
   after :each do
