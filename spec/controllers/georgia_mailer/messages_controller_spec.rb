@@ -1,7 +1,7 @@
 # encoding: UTF-8
 require 'spec_helper'
 
-describe MessagesController do
+describe GeorgiaMailer::MessagesController do
 
   before :each do
     SpamWorker.stub(:perform_async).and_return(true)
