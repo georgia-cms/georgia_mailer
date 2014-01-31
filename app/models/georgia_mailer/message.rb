@@ -1,7 +1,7 @@
 module GeorgiaMailer
   class Message < ActiveRecord::Base
 
-    include Georgia::Indexer
+    include ::Georgia::Indexer
 
     attr_accessible :name, :email, :subject, :message, :attachment, :phone
     delegate :url, :current_path, :size, :content_type, :filename, to: :attachment

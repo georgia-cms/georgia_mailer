@@ -1,5 +1,5 @@
 module GeorgiaMailer
-  class MessageDecorator < Georgia::ApplicationDecorator
+  class MessageDecorator < ::Georgia::ApplicationDecorator
 
     def phone_or_none
       phone.present? ? phone : h.content_tag(:span, 'no phone', class: 'muted')
