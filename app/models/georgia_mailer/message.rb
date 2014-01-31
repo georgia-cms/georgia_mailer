@@ -1,8 +1,6 @@
 module GeorgiaMailer
   class Message < ActiveRecord::Base
 
-    include ::Georgia::Indexer
-
     attr_accessible :name, :email, :subject, :message, :attachment, :phone
     delegate :url, :current_path, :size, :content_type, :filename, to: :attachment
 
@@ -24,6 +22,37 @@ module GeorgiaMailer
 
     def status
       @status ||= spam ? 'spam' : 'clean'
+    end
+
+    include Georgia::Indexer
+    # is_searchable :georgia_mailer_message
+
+    include ::Tire::Model::Search
+    include ::Tire::Model::Callbacks
+
+    def to_indexed_json
+      {
+        name: name,
+        email: email,
+        message: message,
+        subject: subject,
+        phone: phone,
+        status: status,
+        created_at: created_at.strftime('%F')
+      }.to_json
+    end
+
+    def self.search model, params
+      model.tire.search(page: (params[:page] || 1), per_page: (params[:per] || 25)) do
+        if params[:query].present?
+          query do
+            boolean do
+              must { string params[:query], default_operator: "AND" }
+            end
+          end
+          sort { by (params[:o] || :created_at), (params[:dir] || :desc) }
+        end
+      end.results
     end
 
   end
