@@ -1,34 +1,65 @@
 module GeorgiaMailer
-  class MessagesController < ::ApplicationController
+  class MessagesController < ApplicationController
 
-    # Convenient method to create and check for spam
-    def create
-      @message = GeorgiaMailer::Message.new(message_params)
-      if @message.valid? and @message.save
-        SpamWorker.perform_async(@message.id)
-        respond_to do |format|
-          format.html { redirect_to :back, notice: 'Message delivered successfully' }
-          format.js   { render layout: false }
-        end
+    load_and_authorize_resource class: GeorgiaMailer::Message
+
+    before_filter :prepare_search, only: [:search, :show, :spam, :ham]
+
+
+    def index
+      redirect_to action: :search
+    end
+
+    def search
+    end
+
+    # Destroy multiple assets
+    def destroy
+      ids = params[:id].split(',')
+      if @messages = Message.destroy(ids)
+        render layout: false
       else
-        respond_to do |format|
-          format.html { redirect_to :back, alert: 'Oups. Something went wrong.' }
-          format.js   { render layout: false }
-        end
+        head :internal_server_error
+      end
+    end
+
+    def destroy_all_spam
+      if Message.spam.destroy_all
+        redirect_to :back, notice: 'All spam messages have been successfully deleted.'
+      else
+        redirect_to :back, alert: 'Oups. Something went wrong.'
+      end
+    end
+
+    def show
+      @message = Message.find(params[:id]).decorate
+    end
+
+    def spam
+      @message = Message.find(params[:id])
+      if @message.spam!
+        @message.update_attribute(:spam, true)
+        redirect_to :back, notice: 'Message successfully marked as spam.'
+      else
+        redirect_to :back, alert: 'Oups. Something went wrong.'
+      end
+    end
+
+    def ham
+      @message = Message.find(params[:id])
+      if @message.ham! == false
+        @message.update_attribute(:spam, false)
+        redirect_to :back, notice: 'Message successfully marked as ham.'
+      else
+        redirect_to :back, alert: 'Oups. Something went wrong.'
       end
     end
 
     private
 
-    def message_params
-      @message_params = {}
-      params[:message].each do |key, value|
-        @message_params[key] = value.encode('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')
-      end
-      @message_params[:referrer] = request.referrer
-      @message_params[:user_ip] = request.remote_ip
-      @message_params[:user_agent] = request.user_agent
-      @message_params
+    def prepare_search
+      @results = Georgia::Indexer.adapter.search(Georgia::Message, params)
+      @messages = GeorgiaMailer::MessageDecorator.decorate_collection(@results)
     end
 
   end
