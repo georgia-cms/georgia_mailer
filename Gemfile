@@ -1,17 +1,32 @@
-source "https://rubygems.org"
-
-# Declare your gem's dependencies in georgia_mailer.gemspec.
-# Bundler will treat runtime dependencies like base dependencies, and
-# development dependencies will be added by default to the :development group.
+source 'https://rubygems.org'
 gemspec
 
-# jquery-rails is used by the dummy application
-gem "jquery-rails"
+group :development, :test do
+  gem 'tire'
+  gem 'sunspot_rails', '~> 2.0.0'
+end
 
-# Declare any dependencies that are still in development here instead of in
-# your gemspec. These might include edge Rails or gems from your path or
-# Git. Remember to move these dependencies to your gemspec before releasing
-# your gem to rubygems.org.
+group :development do
+  gem 'thin'
+  gem 'debugger'
+  gem 'foreman'
+  gem 'sunspot_solr', '~> 2.0.0'
+end
 
-# To use debugger
-# gem 'debugger'
+group :test do
+  gem 'sqlite3'
+  gem 'rspec-rails'
+  gem 'capybara'
+  gem 'capybara-webkit'
+  gem 'launchy'
+  gem 'database_cleaner'
+  gem 'rb-inotify'
+  gem 'factory_girl_rails'
+  gem 'shoulda-matchers'
+  gem 'simplecov'
+  gem 'brakeman'
+  gem 'rails_best_practices'
+  gem 'pry'
+  gem 'pry-rails'
+  gem 'coveralls', require: false
+end
