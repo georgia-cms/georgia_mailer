@@ -1,9 +1,8 @@
+# encoding: UTF-8
 $:.push File.expand_path("../lib", __FILE__)
 
-# Maintain your gem's version:
 require "georgia_mailer/version"
 
-# Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
   s.name        = "georgia_mailer"
   s.version     = GeorgiaMailer::VERSION
@@ -12,6 +11,7 @@ Gem::Specification.new do |s|
   s.homepage    = "http://www.motioneleven.com/"
   s.summary     = "Handles Georgia Messages, SPAM, contact forms, etc."
   s.description = "GeorgiaMailer works essentially with Georgia CMS to provide spam-free contact forms, email notifications, Sendgrid integration, and so on."
+  s.license     = 'MIT'
 
   s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.md"]
 
