@@ -11,7 +11,10 @@ group :development do
   gem 'debugger'
   gem 'foreman'
   gem 'sunspot_solr', '~> 2.0.0'
+  gem 'letter_opener'
 end
+
+gem 'georgia', path: '~/workspace/georgia'
 
 group :test do
   gem 'sqlite3'

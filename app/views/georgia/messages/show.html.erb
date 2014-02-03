@@ -1,3 +1,8 @@
+<%= content_for :head do %>
+  <%= javascript_include_tag 'georgia_mailer/application' %>
+  <%= stylesheet_link_tag 'georgia_mailer/application' %>
+<% end -%>
+
 <header class='header-main hidden-print'>
   <div class="header-gutter">
     <%= link_to_back search_messages_path %>

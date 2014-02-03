@@ -7,7 +7,7 @@ module Georgia
 
 
     def index
-      redirect_to action: :search
+      redirect_to georgia.search_messages_path
     end
 
     def search
@@ -17,17 +17,17 @@ module Georgia
     def destroy
       ids = params[:id].split(',')
       if @messages = GeorgiaMailer::Message.destroy(ids)
-        render layout: false
+        respond_to do |format|
+          format.html {
+            redirect_to georgia.search_messages_path, notice: 'Messages successfully deleted.'
+          }
+          format.js { render layout: false }
+        end
       else
-        head :internal_server_error
-      end
-    end
-
-    def destroy_all_spam
-      if GeorgiaMailer::Message.spam.destroy_all
-        redirect_to :back, notice: 'All spam messages have been successfully deleted.'
-      else
-        redirect_to :back, alert: 'Oups. Something went wrong.'
+        respond_to do |format|
+          format.html {redirect_to georgia.search_messages_path, alert: 'Oups. Something went wrong.'}
+          format.js {head :internal_server_error}
+        end
       end
     end
 
@@ -52,6 +52,15 @@ module Georgia
         redirect_to :back, notice: 'Message successfully marked as ham.'
       else
         redirect_to :back, alert: 'Oups. Something went wrong.'
+      end
+    end
+
+    def resend_notification
+      @message = GeorgiaMailer::Message.find(params[:id])
+      if GeorgiaMailer::Notifier.new_message_notification(@message, message_path(@message, only_path: false)).deliver
+        redirect_to :back, notice: 'Notification successfully sent.'
+      else
+        redirect_to :back, alert: 'Oups. Something went wrong. Message could not be delivered.'
       end
     end
 
