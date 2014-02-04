@@ -3,7 +3,6 @@ PATH
   specs:
     georgia_mailer (0.1.0)
       georgia
-      rails (>= 3.2.6)
       rakismet
       sidekiq
 
