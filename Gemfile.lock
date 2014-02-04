@@ -6,38 +6,6 @@ PATH
       rakismet
       sidekiq
 
-PATH
-  remote: ~/workspace/georgia
-  specs:
-    georgia (0.7.5)
-      acts-as-taggable-on
-      acts_as_list
-      ancestry
-      bourbon
-      cancan
-      carrierwave
-      ckeditor (= 4.0.8)
-      coffee-rails
-      devise
-      draper
-      fog (> 1.12)
-      jquery-fileupload-rails
-      jquery-rails
-      jquery-ui-rails
-      kaminari
-      mini_magick
-      mousetrap-rails
-      neat
-      rails (>= 3.2.6)
-      routing_concerns
-      rubyzip (> 1)
-      sass-rails
-      select2-rails
-      shadowbox-rails
-      simple_form
-      state_machine
-      unf
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -180,6 +148,34 @@ GEM
       dotenv (>= 0.7)
       thor (>= 0.13.6)
     formatador (0.2.4)
+    georgia (0.7.5)
+      acts-as-taggable-on
+      acts_as_list
+      ancestry
+      bourbon
+      cancan
+      carrierwave
+      ckeditor (= 4.0.8)
+      coffee-rails
+      devise
+      draper
+      fog (> 1.12)
+      jquery-fileupload-rails
+      jquery-rails
+      jquery-ui-rails
+      kaminari
+      mini_magick
+      mousetrap-rails
+      neat
+      rails (>= 3.2.6)
+      routing_concerns
+      rubyzip (> 1)
+      sass-rails
+      select2-rails
+      shadowbox-rails
+      simple_form
+      state_machine
+      unf
     haml (4.0.5)
       tilt
     hashr (0.0.22)
@@ -218,7 +214,7 @@ GEM
       sass (>= 3.2)
     net-scp (1.1.2)
       net-ssh (>= 2.6.5)
-    net-ssh (2.7.0)
+    net-ssh (2.8.0)
     nokogiri (1.6.1)
       mini_portile (~> 0.5.0)
     orm_adapter (0.5.0)
@@ -391,7 +387,6 @@ DEPENDENCIES
   debugger
   factory_girl_rails
   foreman
-  georgia!
   georgia_mailer!
   launchy
   letter_opener

@@ -12,7 +12,6 @@ group :development do
   gem 'foreman'
   gem 'sunspot_solr', '~> 2.0.0'
   gem 'letter_opener'
-  gem 'georgia', path: '~/workspace/georgia'
 end
 
 group :test do
