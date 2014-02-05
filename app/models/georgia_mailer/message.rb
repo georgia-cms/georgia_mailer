@@ -1,6 +1,8 @@
 module GeorgiaMailer
   class Message < ActiveRecord::Base
 
+    Georgia::Indexer.register_extension(:solr, GeorgiaMailer::Message)
+    Georgia::Indexer.register_extension(:tire, GeorgiaMailer::Message)
     include Georgia::Indexer::Adapter
 
     attr_accessible :name, :email, :subject, :message, :attachment, :phone
