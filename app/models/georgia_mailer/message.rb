@@ -1,6 +1,8 @@
 module GeorgiaMailer
   class Message < ActiveRecord::Base
 
+    include Georgia::Indexer::Adapter
+
     attr_accessible :name, :email, :subject, :message, :attachment, :phone
     delegate :url, :current_path, :size, :content_type, :filename, to: :attachment
 
@@ -23,12 +25,6 @@ module GeorgiaMailer
     def status
       @status ||= spam ? 'spam' : 'clean'
     end
-
-    include Georgia::Indexer::Adapter
-    is_searchable({
-      solr: GeorgiaMailer::Concerns::SolrGeorgiaMailerMessageExtension,
-      tire: GeorgiaMailer::Concerns::TireGeorgiaMailerMessageExtension
-    })
 
   end
 end
