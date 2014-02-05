@@ -11,3 +11,16 @@ namespace :messages do
   end
 
 end
+
+namespace :solr do
+
+  namespace :messages do
+
+    desc 'Reindex messages on solr'
+    task reindex: :environment do
+      GeorgiaMailer::Message.reindex
+    end
+
+  end
+
+end
