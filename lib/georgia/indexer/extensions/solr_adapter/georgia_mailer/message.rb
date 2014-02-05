@@ -26,7 +26,7 @@ module Georgia
           end
 
           def self.search_index model, params
-            @search = Georgia::Message.search do
+            search do
               fulltext params[:query] do
                 fields(:name, :email, :message, :subject, :phone)
               end
