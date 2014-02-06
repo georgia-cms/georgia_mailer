@@ -23,16 +23,19 @@ module Georgia
             }.to_json
           end
 
-          def self.search_index model, params
-            model.tire.search(page: (params[:page] || 1), per_page: (params[:per] || 25)) do
+          def self.search_index params
+            page     = params.fetch(:page, 1)
+            per_page = params.fetch(:per, 25)
+
+            search(page: page, per_page: per_page) do
               if params[:query].present?
                 query do
                   boolean do
                     must { string params[:query], default_operator: "AND" }
                   end
                 end
-                sort { by (params[:o] || :created_at), (params[:dir] || :desc) }
               end
+              sort { by (params[:o] || :created_at), (params[:dir] || :desc) } if params[:query].blank?
             end.results
           end
 
