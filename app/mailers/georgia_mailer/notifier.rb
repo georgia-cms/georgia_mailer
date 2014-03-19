@@ -6,8 +6,8 @@ module GeorgiaMailer
       emails_to = Georgia::User.admins.map(&:email)
       unless emails_to.empty?
         mail(
-          from: "georgia@motioneleven.com",
-          to: "noreply@motioneleven.com",
+          from: "noreply@georgiacms.com",
+          to: "noreply@georgiacms.com",
           bcc: emails_to,
           subject: "New message from #{Georgia.title}"
           )
