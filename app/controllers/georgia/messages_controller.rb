@@ -67,8 +67,8 @@ module Georgia
     private
 
     def prepare_search
-      @results = ::Georgia::Indexer.search(GeorgiaMailer::Message, params)
-      @messages = GeorgiaMailer::MessageDecorator.decorate_collection(@results)
+      @search = ::Georgia::Indexer.search(GeorgiaMailer::Message, params)
+      @messages = GeorgiaMailer::MessageDecorator.decorate_collection(@search.results)
     end
 
   end

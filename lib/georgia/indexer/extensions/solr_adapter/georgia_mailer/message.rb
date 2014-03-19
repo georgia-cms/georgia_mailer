@@ -34,7 +34,7 @@ module Georgia
               with(:spam, (params[:s] || 'clean'))
               order_by (params[:o] || :created_at), (params[:dir] || :desc)
               paginate(page: params[:page], per_page: (params[:per] || 25))
-            end.results
+            end
           end
 
         end

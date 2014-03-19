@@ -36,7 +36,7 @@ module Georgia
                 end
               end
               sort { by (params[:o] || :created_at), (params[:dir] || :desc) } if params[:query].blank?
-            end.results
+            end
           end
 
         end
