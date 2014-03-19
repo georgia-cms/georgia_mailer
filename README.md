@@ -6,14 +6,11 @@ Make sure you have a working Georgia installation before proceding with these in
 
 ### Installation
 
-Add migrations and migrate
+The install generator will add missing migrations and automatically migrate your database.
+If you selected ElasticSearch as your indexer with Tire, your index will be created.
+Finally, it will mount the engine in your routes.rb file under '/mailer'
 
-    rake railties:install:migrations
-    rake db:migrate
-
-If you selected ElasticSearch as your indexer, create the GeorgiaMailer::Message index:
-
-    rake environment tire:import CLASS=GeorgiaMailer::Message FORCE=true
+    rails generate georgia_mailer:install
 
 ### Heroku
 

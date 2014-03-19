@@ -5,7 +5,11 @@
   @extend %clickable;
 }
 .message-timestamp {
-  @extend .timestamp--long;
+  white-space: nowrap;
+  text-align: right;
+  font-size: 0.9em;
+  width: 125px;
+  max-width: 125px;
 }
 
 .message-info {
@@ -43,11 +47,12 @@
 }
 
 .message-attachment {
-  @extend .tiny;
+  white-space: nowrap;
+  width: 25px;
+  max-width: 25px;
 }
 
 .message-message span {
-  @extend .nowrap;
   @extend .ellipsis;
   max-width: 800px;
 }

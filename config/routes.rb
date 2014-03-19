@@ -14,6 +14,7 @@ Georgia::Engine.routes.draw do
     member do
       get :spam
       get :ham
+      get :resend_notification
     end
   end
 

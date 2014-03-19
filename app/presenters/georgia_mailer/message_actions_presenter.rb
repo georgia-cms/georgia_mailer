@@ -14,6 +14,7 @@ module GeorgiaMailer
       else
         html << content_tag(:li, link_to_spam) if can?(:spam, @message)
       end
+      html << content_tag(:li, link_to_resend_notification)
       html << content_tag(:li, link_to_trash) if can?(:destroy, @message)
       html
     end
@@ -34,6 +35,10 @@ module GeorgiaMailer
 
     def link_to_spam
       link_to "#{icon_tag('thumbs-down')} Mark as spam".html_safe, [:spam, @message]
+    end
+
+    def link_to_resend_notification
+      link_to "#{icon_tag('envelope')} Resend notification".html_safe, [:resend_notification, @message]
     end
 
     def link_to_trash

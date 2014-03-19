@@ -1,9 +1,8 @@
 PATH
   remote: .
   specs:
-    georgia_mailer (0.0.1)
+    georgia_mailer (0.1.2)
       georgia
-      rails (>= 3.2.6)
       rakismet
       sidekiq
 
@@ -80,11 +79,9 @@ GEM
       json (>= 1.7)
     celluloid (0.15.2)
       timers (~> 1.1.0)
-    ckeditor (4.0.9)
+    ckeditor (4.0.8)
       mime-types
-      orm_adapter (~> 0.5.0)
-    cloudfiles (1.5.0.3)
-      json
+      orm_adapter
     code_analyzer (0.4.4)
       sexp_processor
     coderay (1.1.0)
@@ -151,15 +148,14 @@ GEM
       dotenv (>= 0.7)
       thor (>= 0.13.6)
     formatador (0.2.4)
-    georgia (0.7.3)
+    georgia (0.7.5)
       acts-as-taggable-on
       acts_as_list
       ancestry
       bourbon
       cancan
       carrierwave
-      ckeditor
-      cloudfiles
+      ckeditor (= 4.0.8)
       coffee-rails
       devise
       draper
@@ -171,15 +167,12 @@ GEM
       mini_magick
       mousetrap-rails
       neat
-      rails (~> 3.2.1)
-      rakismet
+      rails (>= 3.2.6)
       routing_concerns
       rubyzip (> 1)
       sass-rails
       select2-rails
-      sendgrid
       shadowbox-rails
-      sidekiq
       simple_form
       state_machine
       unf
@@ -193,7 +186,7 @@ GEM
     jquery-fileupload-rails (0.4.1)
       actionpack (>= 3.1)
       railties (>= 3.1)
-    jquery-rails (3.0.4)
+    jquery-rails (3.1.0)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
     jquery-ui-rails (4.1.1)
@@ -204,6 +197,8 @@ GEM
       activesupport (>= 3.0.0)
     launchy (2.4.2)
       addressable (~> 2.3)
+    letter_opener (1.2.0)
+      launchy (~> 2.2)
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
@@ -219,7 +214,7 @@ GEM
       sass (>= 3.2)
     net-scp (1.1.2)
       net-ssh (>= 2.6.5)
-    net-ssh (2.7.0)
+    net-ssh (2.8.0)
     nokogiri (1.6.1)
       mini_portile (~> 0.5.0)
     orm_adapter (0.5.0)
@@ -308,9 +303,6 @@ GEM
       tilt (~> 1.3)
     select2-rails (3.5.2)
       thor (~> 0.14)
-    sendgrid (1.2.0)
-      json
-      json
     sexp_processor (4.4.1)
     shadowbox-rails (0.0.4)
       sass-rails
@@ -397,6 +389,7 @@ DEPENDENCIES
   foreman
   georgia_mailer!
   launchy
+  letter_opener
   pry
   pry-rails
   rails_best_practices

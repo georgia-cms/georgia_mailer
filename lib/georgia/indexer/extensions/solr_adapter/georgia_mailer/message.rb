@@ -2,8 +2,8 @@ require 'active_support/concern'
 
 module Georgia
   module Indexer
-    module Extensions
-      module Solr
+    module SolrAdapter
+      module GeorgiaMailerMessageExtension
         extend ActiveSupport::Concern
 
         included do
@@ -23,6 +23,18 @@ module Georgia
             string :subject
             string :message
             time :created_at
+          end
+
+          def self.search_index model, params
+            search do
+              fulltext params[:query] do
+                fields(:name, :email, :message, :subject, :phone)
+              end
+              facet :spam
+              with(:spam, (params[:s] || 'clean'))
+              order_by (params[:o] || :created_at), (params[:dir] || :desc)
+              paginate(page: params[:page], per_page: (params[:per] || 25))
+            end.results
           end
 
         end

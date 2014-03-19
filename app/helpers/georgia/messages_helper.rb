@@ -1,4 +1,4 @@
-module GeorgiaMailer
+module Georgia
   module MessagesHelper
 
     def message_actions_list(message)
