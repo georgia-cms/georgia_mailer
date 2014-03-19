@@ -44,7 +44,7 @@
       <% if @message.attachment.try(:file) and @message.attachment.file.exists? %>
       <%= link_to @message.attachment.file.filename, @message.attachment.url %>
       <% else -%>
-      <span class='muted'>There were no attachment.</span>
+      <span class='muted'>There were no attachments.</span>
       <% end -%>
     </p>
   </div>
