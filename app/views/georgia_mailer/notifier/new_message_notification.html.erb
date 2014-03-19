@@ -40,29 +40,14 @@ a {
   color: #FFF;
   background-color: #348eda;
   border:solid #348eda;
-  border-width:10px 20px;
+  border-width: 5px 20px;
   line-height:2;
   font-weight:bold;
   margin-right:10px;
   text-align:center;
   cursor:pointer;
   display: inline-block;
-  border-radius: 25px;
-}
-
-.btn-secondary {
-  text-decoration:none;
-  color: #FFF;
-  background-color: #aaa;
-  border:solid #aaa;
-  border-width:10px 20px;
-  line-height:2;
-  font-weight:bold;
-  margin-right:10px;
-  text-align:center;
-  cursor:pointer;
-  display: inline-block;
-  border-radius: 25px;
+  border-radius: 5px;
 }
 
 .last {
@@ -189,11 +174,10 @@ ul li, ol li {
           <td>
             <p>Hi there,</p>
             <p>You've received a new message on Georgia CMS from <%= @message.name_or_anonymous %></p>
-            <h1><%= @message.subject %></h1>
+            <% if @message.subject.present? %><h1><%= @message.subject %></h1><% end %>
             <p><%= @message.message %></p>
-            <% if @message.phone.present? %>
-              <p><%= @message.phone %></p>
-            <% end -%>
+            <% if @message.phone.present? %><p><%= @message.phone %></p><% end -%>
+            <p><a href="<%= georgia.message_path(@message, only_path: false) %>" class='btn-primary'>Have a closer look</a></p>
             <p>Thanks, have a lovely day.</p>
           </td>
         </tr>
