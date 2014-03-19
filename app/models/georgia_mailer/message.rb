@@ -8,7 +8,7 @@ module GeorgiaMailer
     validates :email, format: /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i
     validates :message, presence: true
 
-    mount_uploader :attachment, Georgia::AttachmentUploader
+    mount_uploader :attachment, Ckeditor::AttachmentFileUploader
 
     # Anti Spam: check https://github.com/joshfrench/rakismet for more details
     include Rakismet::Model
