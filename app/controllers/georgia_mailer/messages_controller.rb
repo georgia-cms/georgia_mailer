@@ -1,11 +1,11 @@
 module GeorgiaMailer
   class MessagesController < ::ApplicationController
 
-    # Convenient method to create and check for spam
     def create
-      @message = GeorgiaMailer::Message.new(message_params)
+      @message = Message.new(message_params)
       if @message.save
-        SpamWorker.perform_async(@message.id)
+        EmailDeliveryWorker.new.async.later(60, @message.id)
+        SpamWorker.new.async.perform(@message.id)
         respond_to do |format|
           format.html { redirect_to :back, notice: 'Message delivered successfully' }
           format.js   { render layout: false }

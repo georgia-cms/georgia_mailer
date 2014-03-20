@@ -1,17 +1,16 @@
 module GeorgiaMailer
   class SpamWorker
-    include Sidekiq::Worker
+    include SuckerPunch::Job
 
     def perform(message_id)
-      begin
-        @message = GeorgiaMailer::Message.find(message_id)
-        is_spam = @message.spam?
-        @message.update_attributes(spam: is_spam, verified_at: Time.zone.now)
-        unless @message.spam or !GeorgiaMailer.turn_on_email_notifications
-          GeorgiaMailer::Notifier.new_message_notification(@message).deliver
+      ActiveRecord::Base.connection_pool.with_connection do
+        begin
+          message = Message.find(message_id)
+          is_spam = SpamCheck.new(message).call
+          message.update_attributes(spam: is_spam, verified_at: Time.zone.now)
+        rescue ActiveRecord::RecordNotFound
+          Rails.logger.info "Message with ID #{message_id} was destroy before it could be processed"
         end
-      rescue ActiveRecord::RecordNotFound
-        Rails.logger.info "Message with ID #{message_id} was destroy before it could be processed"
       end
     end
 
