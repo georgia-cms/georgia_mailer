@@ -1,3 +1,7 @@
+== 0.1.4
+
+- Sends emails only to those who wish to
+
 == 0.1.3
 
 - Replaces Sidekiq for SuckerPunch
