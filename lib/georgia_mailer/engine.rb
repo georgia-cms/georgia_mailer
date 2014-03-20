@@ -4,7 +4,7 @@ module GeorgiaMailer
 
     require 'georgia'
     require 'rakismet'
-    require 'sidekiq'
+    require 'sucker_punch'
 
   end
 end

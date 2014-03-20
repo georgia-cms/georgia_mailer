@@ -17,6 +17,6 @@ Gem::Specification.new do |s|
 
   s.add_dependency "georgia"
   s.add_dependency "rakismet"
-  s.add_dependency 'sidekiq'
+  s.add_dependency 'sucker_punch'
 
 end
