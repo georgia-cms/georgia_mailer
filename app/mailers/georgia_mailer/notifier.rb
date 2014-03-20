@@ -3,7 +3,7 @@ module GeorgiaMailer
 
     def new_message_notification(message)
       @message = GeorgiaMailer::MessageDecorator.decorate(message)
-      emails_to = Georgia::User.admins.map(&:email)
+      emails_to = Georgia::User.where(receives_notifications: true).map(&:email)
       unless emails_to.empty?
         mail(
           from: "noreply@georgiacms.com",
