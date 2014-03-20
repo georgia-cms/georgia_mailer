@@ -1,3 +1,7 @@
+== 0.1.3
+
+- Replaces Sidekiq for SuckerPunch
+
 == 0.1.2
 
 - Fixes TireAdapter

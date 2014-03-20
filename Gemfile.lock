@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    georgia_mailer (0.1.2)
+    georgia_mailer (0.1.3)
       georgia
       rakismet
       sucker_punch
