@@ -23,7 +23,7 @@ module GeorgiaMailer
     def message_params
       @message_params = {}
       params[:message].each do |key, value|
-        @message_params[key] = value.encode('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')
+        @message_params[key] = value.force_encoding('UTF-8')
       end
       @message_params[:referrer] = request.referrer
       @message_params[:user_ip] = request.remote_ip
