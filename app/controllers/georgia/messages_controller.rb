@@ -57,7 +57,7 @@ module Georgia
 
     def resend_notification
       @message = GeorgiaMailer::Message.find(params[:id])
-      if GeorgiaMailer::Notifier.new_message_notification(@message, message_path(@message, only_path: false)).deliver
+      if GeorgiaMailer::Notifier.new_message_notification(@message).deliver
         redirect_to :back, notice: 'Notification successfully sent.'
       else
         redirect_to :back, alert: 'Oups. Something went wrong. Message could not be delivered.'
