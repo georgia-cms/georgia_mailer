@@ -25,9 +25,9 @@
   <div class="row">
     <div class="col-md-1">
       <div class="inbox-categories">
-        <%= link_to 'Inbox', search_messages_path(spam: 0), class: "inbox-category-link#{' active' if params[:spam] == '0'}" %>
+        <%= link_to 'Inbox', search_messages_path, class: "inbox-category-link#{' active' unless params[:spam].present?}" %>
         <%= link_to 'Spam', search_messages_path(spam: 1), class: "inbox-category-link#{' active' if params[:spam] == '1'}" %>
-        <%= link_to 'All', search_messages_path, class: "inbox-category-link#{' active' unless params[:spam].present?}" %>
+        <%= link_to 'All', search_messages_path(spam: 0), class: "inbox-category-link#{' active' if params[:spam] == '0'}" %>
       </div>
     </div>
     <div class="col-md-11">
