@@ -31,6 +31,11 @@ module Georgia
       end
     end
 
+    def destroy_all_spam
+      GeorgiaMailer::DestroyAllSpamWorker.new.async.perform
+      redirect_to search_messages_path(s: true), notice: 'Busy purging all spam messages.'
+    end
+
     def show
       @message = GeorgiaMailer::Message.find(params[:id]).decorate
     end
