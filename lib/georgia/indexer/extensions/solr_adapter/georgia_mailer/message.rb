@@ -14,14 +14,13 @@ module Georgia
             text :message
             text :subject
             text :phone
-            string :spam do
-              status
-            end
+            string :status
             string :name
             string :email
             string :phone
             string :subject
             string :message
+            boolean :spam
             time :created_at
           end
 
@@ -30,8 +29,7 @@ module Georgia
               fulltext params[:query] do
                 fields(:name, :email, :message, :subject, :phone)
               end
-              facet :spam
-              with(:spam, (params[:s] || 'clean'))
+              with(:spam, params[:s]) if params[:s].present?
               order_by (params[:o] || :created_at), (params[:dir] || :desc)
               paginate(page: params[:page], per_page: (params[:per] || 25))
             end

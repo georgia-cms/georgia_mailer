@@ -1,0 +1,17 @@
+.inbox-categories {
+  border-top: 1px solid #ddd;
+  margin-top: 52px;
+  padding-top: 5px;
+}
+
+.inbox-category-link {
+  display: block;
+  padding: 5px 5px 5px 10px;
+  margin-top: 5px;
+  &.active {
+    font-weight: bold;
+    color: #FFF;
+    background-color: #2862a1;
+    &:hover { text-decoration: none; }
+  }
+}
