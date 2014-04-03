@@ -25,9 +25,9 @@
   <div class="row">
     <div class="col-md-1">
       <div class="inbox-categories">
-        <%= link_to 'Inbox', search_messages_path(spam: false), class: "inbox-category-link#{' active' if params[:s] == false}" %>
-        <%= link_to 'Spam', search_messages_path(spam: true), class: "inbox-category-link#{' active' if params[:s] == true}" %>
-        <%= link_to 'All', search_messages_path, class: "inbox-category-link#{' active' unless params[:s].present?}" %>
+        <%= link_to 'Inbox', search_messages_path(spam: 0), class: "inbox-category-link#{' active' if params[:spam] == '0'}" %>
+        <%= link_to 'Spam', search_messages_path(spam: 1), class: "inbox-category-link#{' active' if params[:spam] == '1'}" %>
+        <%= link_to 'All', search_messages_path, class: "inbox-category-link#{' active' unless params[:spam].present?}" %>
       </div>
     </div>
     <div class="col-md-11">
@@ -53,7 +53,7 @@
               <%= pagination_tag(@search) %>
             </th>
           </tr>
-          <% if params[:s] == 'spam' and @messages.any? %>
+          <% if params[:spam] == '1' and @messages and @messages.any? %>
             <tr class='active'>
               <th colspan='7' class='messages-destroy-spam'>
                 <%= link_to 'delete all spam messages now', destroy_all_spam_messages_path %>
@@ -67,7 +67,7 @@
           <% else %>
             <tr>
               <td colspan="7">
-                <% if params[:s] == true %>
+                <% if params[:spam] == '1' %>
                   Hooray, no spam here!
                 <% else %>
                   Your inbox is empty.

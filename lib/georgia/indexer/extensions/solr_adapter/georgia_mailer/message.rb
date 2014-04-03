@@ -24,12 +24,12 @@ module Georgia
             time :created_at
           end
 
-          def self.search_index model, params
+          def self.search_index params
             search do
               fulltext params[:query] do
                 fields(:name, :email, :message, :subject, :phone)
               end
-              with(:spam, params[:s]) if params[:s].present?
+              with(:spam, (params[:spam] == '1')) if params[:spam]
               order_by (params[:o] || :created_at), (params[:dir] || :desc)
               paginate(page: params[:page], per_page: (params[:per] || 25))
             end

@@ -33,6 +33,7 @@ module Georgia
                   boolean do
                     must { string params[:query], default_operator: "AND" }
                   end
+                  # TODO: filter for spam
                 end
               end
               sort { by (params[:o] || :created_at), (params[:dir] || :desc) } if params[:query].blank?
