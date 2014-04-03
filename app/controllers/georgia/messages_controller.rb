@@ -13,7 +13,7 @@ module Georgia
     def search
     end
 
-    # Destroy multiple assets
+    # Destroy multiple messages
     def destroy
       ids = params[:id].split(',')
       if @messages = GeorgiaMailer::Message.destroy(ids)
