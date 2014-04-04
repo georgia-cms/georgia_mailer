@@ -34,9 +34,9 @@
       <table class="table table-hover table-results messages js-checkboxable">
         <thead>
           <tr>
-            <th colspan='4'>
+            <th colspan='3'>
               <div class="btn-group">
-                <div class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                <div class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
                   <%= checkboxable_all_tag :messages %>
                   <span class="caret"></span>
                 </div>
@@ -45,9 +45,14 @@
                   <li><%= link_to 'None', '#', class: 'js-select-none' %></li>
                 </ul>
               </div>
-              <%= link_to "#{icon_tag('thumbs-up')} ham".html_safe, '#', class: 'btn btn-default btn-xs js-ham disabled' %>
-              <%= link_to "#{icon_tag('thumbs-down')} spam".html_safe, '#', class: 'btn btn-default btn-xs js-spam disabled' %>
-              <%= link_to "#{icon_tag('trash-o')} trash".html_safe, '#', class: 'btn btn-default btn-xs js-delete disabled' %>
+            </th>
+            <th>
+              <% if params[:spam] == '1'  %>
+                <%= link_to "#{icon_tag('thumbs-up')} Move to Inbox".html_safe, '#', class: 'btn btn-default btn-xs js-ham disabled' %>
+              <% else %>
+                <%= link_to "#{icon_tag('thumbs-down')} Report spam".html_safe, '#', class: 'btn btn-default btn-xs js-spam disabled' %>
+              <% end %>
+              <%= link_to "#{icon_tag('trash-o')} Delete".html_safe, '#', class: 'btn btn-default btn-xs js-delete disabled' %>
             </th>
             <th colspan='3'>
               <%= pagination_tag(@search) %>
