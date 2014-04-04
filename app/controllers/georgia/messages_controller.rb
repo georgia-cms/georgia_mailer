@@ -3,7 +3,7 @@ module Georgia
 
     load_and_authorize_resource class: GeorgiaMailer::Message
 
-    before_filter :prepare_search, only: [:search, :show, :spam, :ham]
+    before_filter :prepare_search, only: :search
 
 
     def index
