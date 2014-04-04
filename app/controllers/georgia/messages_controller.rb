@@ -43,7 +43,7 @@ module Georgia
     def spam
       ids = params[:id].split(',')
       @messages = GeorgiaMailer::Message.find(ids)
-      if !@messages.map(&:report_spam!).include?(false)
+      if !@messages.map(&:report_spam).include?(false)
         respond_to do |format|
           format.html {
             redirect_to :back, notice: "#{'Message'.pluralize(@messages.length)} successfully reported as spam."
@@ -63,7 +63,7 @@ module Georgia
     def ham
       ids = params[:id].split(',')
       @messages = GeorgiaMailer::Message.find(ids)
-      if !@messages.map(&:move_to_inbox!).include?(false)
+      if !@messages.map(&:move_to_inbox).include?(false)
         @notification = "#{'Message'.pluralize(@messages.length)} successfully moved to your inbox."
         respond_to do |format|
           format.html { redirect_to :back, notice: @notification }

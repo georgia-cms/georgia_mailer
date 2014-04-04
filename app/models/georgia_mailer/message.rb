@@ -28,12 +28,20 @@ module GeorgiaMailer
       @status ||= spam ? 'spam' : 'clean'
     end
 
-    def report_spam!
-      self.update_attribute(:spam, true) if self.spam!
+    def report_spam
+      if self.spam!
+        self.update_attribute(:spam, true)
+      else
+        false
+      end
     end
 
-    def move_to_inbox!
-      self.update_attribute(:spam, false) if !self.ham!
+    def move_to_inbox
+      if !self.ham!
+        self.update_attribute(:spam, false)
+      else
+        false
+      end
     end
 
   end
