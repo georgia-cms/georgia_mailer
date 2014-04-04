@@ -24,13 +24,28 @@ class @MessagesTable
       type: 'DELETE'
     )
 
-  spam: (event) ->
+  spam: (event) =>
     @stopEvent(event)
-    # TODO: send event to controller
+    $.ajax(
+      type: "POST"
+      dataType: "JSON"
+      url: "/admin/messages/#{@getIds()}/spam"
+      success: (data) =>
+        $.each data, (i, message_id) => @removeMessage(message_id)
+    )
 
-  ham: (event) ->
+  ham: (event) =>
     @stopEvent(event)
-    # TODO: send event to controller
+    $.ajax(
+      type: "POST"
+      dataType: "JSON"
+      url: "/admin/messages/#{@getIds()}/ham"
+      success: (data) =>
+        $.each data, (i, message_id) => @removeMessage(message_id)
+    )
+
+  removeMessage: (message_id) ->
+    $("tr#message_#{message_id}").remove();
 
   enableActions: () =>
     @spamBtn.removeClass('disabled').addClass('btn-warning')

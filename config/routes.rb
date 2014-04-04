@@ -12,9 +12,9 @@ Georgia::Engine.routes.draw do
       get :destroy_all_spam
     end
     member do
-      get :spam
-      get :ham
       get :resend_notification
+      post :spam
+      post :ham
     end
   end
 

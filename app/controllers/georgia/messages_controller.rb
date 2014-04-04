@@ -41,22 +41,41 @@ module Georgia
     end
 
     def spam
-      @message = GeorgiaMailer::Message.find(params[:id])
-      if @message.spam!
-        @message.update_attribute(:spam, true)
-        redirect_to :back, notice: 'Message successfully marked as spam.'
+      ids = params[:id].split(',')
+      @messages = GeorgiaMailer::Message.find(ids)
+      if !@messages.map(&:report_spam!).include?(false)
+        respond_to do |format|
+          format.html {
+            redirect_to :back, notice: "#{'Message'.pluralize(@messages.length)} successfully reported as spam."
+          }
+          format.js { render layout: false }
+          format.json { render json: @messages.map(&:id) }
+        end
       else
-        redirect_to :back, alert: 'Oups. Something went wrong.'
+        respond_to do |format|
+          format.html {redirect_to :back, alert: 'Oups. Something went wrong.'}
+          format.js {head :internal_server_error}
+          format.json {head :internal_server_error}
+        end
       end
     end
 
     def ham
-      @message = GeorgiaMailer::Message.find(params[:id])
-      if @message.ham! == false
-        @message.update_attribute(:spam, false)
-        redirect_to :back, notice: 'Message successfully marked as ham.'
+      ids = params[:id].split(',')
+      @messages = GeorgiaMailer::Message.find(ids)
+      if !@messages.map(&:move_to_inbox!).include?(false)
+        @notification = "#{'Message'.pluralize(@messages.length)} successfully moved to your inbox."
+        respond_to do |format|
+          format.html { redirect_to :back, notice: @notification }
+          format.js { render layout: false }
+          format.json { render json: @messages.map(&:id) }
+        end
       else
-        redirect_to :back, alert: 'Oups. Something went wrong.'
+        respond_to do |format|
+          format.html {redirect_to :back, alert: 'Oups. Something went wrong.'}
+          format.js {head :internal_server_error}
+          format.json {head :internal_server_error}
+        end
       end
     end
 
