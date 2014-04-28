@@ -173,11 +173,18 @@ ul li, ol li {
         <tr>
           <td>
             <p>Hi there,</p>
-            <p>You've received a new message on Georgia CMS from <%= @message.name_or_anonymous %></p>
-            <% if @message.subject.present? %><h1><%= @message.subject %></h1><% end %>
+            <p>You've received a new message on Georgia CMS.</p>
+            <% if @message.subject.present? %>
+              <h1><%= @message.subject %></h1>
+            <% end %>
             <p><%= @message.message %></p>
+            <p>Date: <%= @message.created_at.strftime('%F %H:%M:%S') %></p>
+            <p>From: <%= @message.name_or_anonymous %></p>
+            <p>URL:  <%= @message.referrer || 'unknown' %></p>
             <% if @message.phone.present? %><p><%= @message.phone %></p><% end -%>
-            <p><a href="<%= georgia.message_path(@message, only_path: false) %>" class='btn-primary'>Have a closer look</a></p>
+              <p>
+                <a href="<%= georgia.message_path(@message, only_path: false) %>" class='btn-primary'>Have a closer look</a>
+              </p>
             <p>Thanks, have a lovely day.</p>
           </td>
         </tr>
