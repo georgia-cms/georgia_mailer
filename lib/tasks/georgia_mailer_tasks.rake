@@ -12,15 +12,12 @@ namespace :messages do
 
 end
 
-namespace :solr do
 
-  namespace :messages do
-
-    desc 'Reindex messages on solr'
-    task reindex: :environment do
-      GeorgiaMailer::Message.reindex
+namespace :georgia do
+  namespace :mailer do
+    task create_indices: :environment do
+      GeorgiaMailer::Message.__elasticsearch__.create_index! force: true
+      GeorgiaMailer::Message.import
     end
-
   end
-
 end
