@@ -9,12 +9,12 @@ module GeorgiaMailer
     def to_s
       html = ActiveSupport::SafeBuffer.new
       if @message.spam
-        html << link_to_ham if can?(:ham, @message)
+        html << link_to_ham# if can?(:ham, @message)
       else
-        html << link_to_spam if can?(:spam, @message)
+        html << link_to_spam# if can?(:spam, @message)
       end
       html << link_to_resend_notification
-      html << link_to_trash if can?(:destroy, @message)
+      html << link_to_trash# if can?(:destroy, @message)
       html
     end
 

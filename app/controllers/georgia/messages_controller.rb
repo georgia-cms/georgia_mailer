@@ -1,8 +1,6 @@
 module Georgia
   class MessagesController < ::Georgia::ApplicationController
 
-    load_and_authorize_resource class: GeorgiaMailer::Message
-
     before_filter :prepare_search, only: :search
 
 
@@ -91,8 +89,9 @@ module Georgia
     private
 
     def prepare_search
-      @search = GeorgiaMailer::Message.search_index(params)
-      @messages = GeorgiaMailer::MessageDecorator.decorate_collection(@search.results)
+      search_definition = Georgia::MessageSearch.new(params).definition
+      @search = GeorgiaMailer::Message.search(search_definition).page(params[:page])
+      @messages = GeorgiaMailer::MessageDecorator.decorate_collection(@search.records)
     end
 
   end
