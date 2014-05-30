@@ -4,7 +4,6 @@ module GeorgiaMailer
     include Elasticsearch::Model
     include Elasticsearch::Model::Callbacks
 
-    attr_accessible :name, :email, :subject, :message, :attachment, :phone
     delegate :url, :current_path, :size, :content_type, :filename, to: :attachment
 
     validates :name, presence: true
