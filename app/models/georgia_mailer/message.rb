@@ -7,7 +7,7 @@ module GeorgiaMailer
     delegate :url, :current_path, :size, :content_type, :filename, to: :attachment
 
     validates :name, presence: true
-    validates :email, format: /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i
+    validates :email, format: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
     validates :message, presence: true
 
     mount_uploader :attachment, Ckeditor::AttachmentFileUploader
