@@ -14,17 +14,9 @@ Finally, it will mount the engine in your routes.rb file under '/mailer'
 
 ### Heroku
 
-Add Redis addon for Sidekiq
-
-    heroku addons:add redistogo
-
 Generate GeorgiaMailer::Message index:
 
-    heroku run rake environment tire:import CLASS=GeorgiaMailer::Message FORCE=true
-
-Add sidekiq to your Procfile:
-
-    worker: bundle exec sidekiq
+    heroku run rake environment georgia:mailer:create_indices
 
 ### Spam filtering
 
