@@ -15,7 +15,7 @@ module GeorgiaMailer
     # Anti Spam: check https://github.com/joshfrench/rakismet for more details
     include Rakismet::Model
     rakismet_attrs author: :name, author_email: :email, content: :message, comment_type: 'message'
-    attr_accessible :user_ip, :user_agent, :referrer, :spam, :verified_at
+    # attr_accessible :user_ip, :user_agent, :referrer, :spam, :verified_at
     attr_accessor :permalink, :author_url
 
     scope :spam, where(spam: true)
