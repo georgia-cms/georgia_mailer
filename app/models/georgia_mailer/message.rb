@@ -18,9 +18,9 @@ module GeorgiaMailer
     # attr_accessible :user_ip, :user_agent, :referrer, :spam, :verified_at
     attr_accessor :permalink, :author_url
 
-    scope :spam, where(spam: true)
-    scope :ham, where(spam: false)
-    scope :latest, order("created_at DESC")
+    scope :spam, -> { where(spam: true) }
+    scope :ham, -> { where(spam: false) }
+    scope :latest, -> { order("created_at DESC") }
 
     def status
       @status ||= spam ? 'spam' : 'clean'
