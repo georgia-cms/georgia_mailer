@@ -9,4 +9,13 @@ module GeorgiaMailer
   # Add to Georgia by default
   Georgia.navigation += %w(messages)
 
+  Georgia.permissions.merge!(inbox: {
+    read_messages:          { guest: false, contributor: false, editor: true,  admin: true, },
+    print_messages:         { guest: false, contributor: false, editor: true,  admin: true, },
+    mark_messages_as_spam:  { guest: false, contributor: false, editor: true,  admin: true, },
+    mark_messages_as_ham:   { guest: false, contributor: false, editor: true,  admin: true, },
+    delete_messages:        { guest: false, contributor: false, editor: true,  admin: true, },
+    empty_trash:            { guest: false, contributor: false, editor: false, admin: true, },
+  })
+
 end
