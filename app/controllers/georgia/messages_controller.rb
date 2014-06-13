@@ -1,18 +1,21 @@
 module Georgia
-  class MessagesController < ::Georgia::ApplicationController
-
-    before_filter :prepare_search, only: :search
-
+  class MessagesController < ApplicationController
 
     def index
+      authorize GeorgiaMailer::Message
       redirect_to georgia.search_messages_path
     end
 
     def search
+      authorize GeorgiaMailer::Message
+      search_definition = Georgia::MessageSearch.new(params).definition
+      @search = GeorgiaMailer::Message.search(search_definition).page(params[:page])
+      @messages = GeorgiaMailer::MessageDecorator.decorate_collection(@search.records)
     end
 
     # Destroy multiple messages
     def destroy
+      authorize GeorgiaMailer::Message
       ids = params[:id].split(',')
       if @messages = GeorgiaMailer::Message.destroy(ids)
         respond_to do |format|
@@ -30,17 +33,20 @@ module Georgia
     end
 
     def destroy_all_spam
+      authorize GeorgiaMailer::Message
       GeorgiaMailer::DestroyAllSpamWorker.new.async.perform
       redirect_to search_messages_path(s: true), notice: 'Busy purging all spam messages.'
     end
 
     def show
       @message = GeorgiaMailer::Message.find(params[:id]).decorate
+      authorize @message
     end
 
     def spam
       ids = params[:id].split(',')
       @messages = GeorgiaMailer::Message.find(ids)
+      authorize @messages
       if !@messages.map(&:report_spam).include?(false)
         respond_to do |format|
           format.html {
@@ -61,6 +67,7 @@ module Georgia
     def ham
       ids = params[:id].split(',')
       @messages = GeorgiaMailer::Message.find(ids)
+      authorize @messages
       if !@messages.map(&:move_to_inbox).include?(false)
         @notification = "#{'Message'.pluralize(@messages.length)} successfully moved to your inbox."
         respond_to do |format|
@@ -79,19 +86,12 @@ module Georgia
 
     def resend_notification
       @message = GeorgiaMailer::Message.find(params[:id])
+      authorize @message
       if GeorgiaMailer::Notifier.new_message_notification(@message).deliver
         redirect_to :back, notice: 'Notification successfully sent.'
       else
         redirect_to :back, alert: 'Oups. Something went wrong. Message could not be delivered.'
       end
-    end
-
-    private
-
-    def prepare_search
-      search_definition = Georgia::MessageSearch.new(params).definition
-      @search = GeorgiaMailer::Message.search(search_definition).page(params[:page])
-      @messages = GeorgiaMailer::MessageDecorator.decorate_collection(@search.records)
     end
 
   end
