@@ -10,12 +10,14 @@ module GeorgiaMailer
   Georgia.navigation += %w(messages)
 
   Georgia.permissions.merge!(inbox: {
-    read_messages:          { guest: false, contributor: false, editor: true,  admin: true, },
-    print_messages:         { guest: false, contributor: false, editor: true,  admin: true, },
-    mark_messages_as_spam:  { guest: false, contributor: false, editor: true,  admin: true, },
-    mark_messages_as_ham:   { guest: false, contributor: false, editor: true,  admin: true, },
-    delete_messages:        { guest: false, contributor: false, editor: true,  admin: true, },
-    empty_trash:            { guest: false, contributor: false, editor: false, admin: true, },
+    read_messages:          { communications: true,  admin: true, },
+    print_messages:         { communications: true,  admin: true, },
+    mark_messages_as_spam:  { communications: true,  admin: true, },
+    mark_messages_as_ham:   { communications: true,  admin: true, },
+    delete_messages:        { communications: true,  admin: true, },
+    empty_trash:            { communications: false, admin: true, },
   })
+
+  Georgia.roles += %w(communications)
 
 end
