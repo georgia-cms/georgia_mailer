@@ -1,28 +1,25 @@
-class @MessagesTable
+class @MessagesTable extends @Table
 
-  constructor: (element) ->
-    @element          = $(element)
-    @checkboxes       = @element.find("input:checkbox")
-    @deleteBtn        = @element.find('.js-delete')
-    @spamBtn          = @element.find('.js-spam')
-    @hamBtn           = @element.find('.js-ham')
+  constructor: (element, checkboxable) ->
+    super(element, checkboxable)
+    @deleteBtn  = @element.find('.js-delete')
+    @spamBtn    = @element.find('.js-spam')
+    @hamBtn     = @element.find('.js-ham')
     @setBindings()
 
   setBindings: () =>
-    @checkboxes.on('change', @update)
     @deleteBtn.on('click', @delete)
     @spamBtn.on('click', @spam)
     @hamBtn.on('click', @ham)
-
-  update: () =>
-    if @getChecked().length then @enableActions() else @disableActions()
 
   delete: (event) =>
     @stopEvent(event)
     $.ajax(
       url: "/admin/messages/#{@getIds()}"
       type: 'DELETE'
-    )
+      dataType: "JSON"
+      success: @removeMessages
+    ).always(@notify)
 
   spam: (event) =>
     @stopEvent(event)
@@ -30,9 +27,8 @@ class @MessagesTable
       type: "POST"
       dataType: "JSON"
       url: "/admin/messages/#{@getIds()}/spam"
-      success: (data) =>
-        $.each data, (i, message_id) => @removeMessage(message_id)
-    )
+      success: @removeMessages
+    ).always(@notify)
 
   ham: (event) =>
     @stopEvent(event)
@@ -40,9 +36,11 @@ class @MessagesTable
       type: "POST"
       dataType: "JSON"
       url: "/admin/messages/#{@getIds()}/ham"
-      success: (data) =>
-        $.each data, (i, message_id) => @removeMessage(message_id)
-    )
+      success: @removeMessages
+    ).always(@notify)
+
+  removeMessages: () =>
+    $.each @getIds(), (i, message_id) => @removeMessage(message_id)
 
   removeMessage: (message_id) ->
     $("tr#message_#{message_id}").remove();
@@ -57,17 +55,10 @@ class @MessagesTable
     @hamBtn.addClass('disabled').removeClass('btn-warning')
     @deleteBtn.addClass('disabled').removeClass('btn-danger')
 
-  stopEvent: (event) ->
-    event.stopPropagation()
-    event.preventDefault()
-
-  getChecked: () => @element.find("input:checkbox:checked[data-checkbox='child']")
-  getId:      (c) => $(c).data('id')
-  getIds:     () => $.map(@getChecked(), (c) => @getId(c))
-
 $.fn.actsAsMessagesTable = () ->
   @each ->
-    new MessagesTable($(this))
+    checkboxable = new Checkboxable($(this))
+    new MessagesTable($(this), checkboxable)
 
 jQuery ->
   $("table.messages.js-checkboxable").each ->
