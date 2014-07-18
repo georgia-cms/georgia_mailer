@@ -1,6 +1,12 @@
 module Georgia
   class MessagesController < Georgia::ApplicationController
 
+
+    def show
+      @message = Georgia::Mailer::Message.find(params[:id]).decorate
+      authorize @message
+    end
+
     def index
       authorize Georgia::Mailer::Message
       redirect_to georgia.search_messages_path
@@ -13,22 +19,14 @@ module Georgia
       @messages = Georgia::Mailer::MessageDecorator.decorate_collection(@search.records)
     end
 
-    # Destroy multiple messages
     def destroy
-      authorize Georgia::Mailer::Message
-      ids = params[:id].split(',')
-      if @messages = Georgia::Mailer::Message.destroy(ids)
-        respond_to do |format|
-          format.html {
-            redirect_to georgia.search_messages_path, notice: 'Messages successfully deleted.'
-          }
-          format.js { render layout: false }
-        end
+      set_messages
+      authorize @messages
+      messages_count = @messages.length
+      if @messages.destroy_all
+        render_success("#{'Message'.pluralize(messages_count)} successfully deleted.")
       else
-        respond_to do |format|
-          format.html {redirect_to georgia.search_messages_path, alert: 'Oups. Something went wrong.'}
-          format.js {head :internal_server_error}
-        end
+        render_error('Oups. Something went wrong.')
       end
     end
 
@@ -38,49 +36,31 @@ module Georgia
       redirect_to search_messages_path(s: true), notice: 'Busy purging all spam messages.'
     end
 
-    def show
-      @message = Georgia::Mailer::Message.find(params[:id]).decorate
-      authorize @message
-    end
-
     def spam
-      ids = params[:id].split(',')
-      @messages = Georgia::Mailer::Message.find(ids)
+      set_messages
       authorize @messages
-      if !@messages.map(&:report_spam).include?(false)
-        respond_to do |format|
-          format.html {
-            redirect_to :back, notice: "#{'Message'.pluralize(@messages.length)} successfully reported as spam."
-          }
-          format.js { render layout: false }
-          format.json { render json: @messages.map(&:id) }
+      begin
+        if !@messages.map(&:report_spam).include?(false)
+          render_success("#{'Message'.pluralize(@messages.length)} successfully reported as spam.")
+        else
+          render_error('Oups. Something went wrong.')
         end
-      else
-        respond_to do |format|
-          format.html {redirect_to :back, alert: 'Oups. Something went wrong.'}
-          format.js {head :internal_server_error}
-          format.json {head :internal_server_error}
-        end
+      rescue Rakismet::Undefined => ex
+        render_error(ex.message)
       end
     end
 
     def ham
-      ids = params[:id].split(',')
-      @messages = Georgia::Mailer::Message.find(ids)
+      set_messages
       authorize @messages
-      if !@messages.map(&:move_to_inbox).include?(false)
-        @notification = "#{'Message'.pluralize(@messages.length)} successfully moved to your inbox."
-        respond_to do |format|
-          format.html { redirect_to :back, notice: @notification }
-          format.js { render layout: false }
-          format.json { render json: @messages.map(&:id) }
+      begin
+        if !@messages.map(&:move_to_inbox).include?(false)
+          render_success("#{'Message'.pluralize(@messages.length)} successfully moved to your inbox.")
+        else
+          render_error('Oups. Something went wrong.')
         end
-      else
-        respond_to do |format|
-          format.html {redirect_to :back, alert: 'Oups. Something went wrong.'}
-          format.js {head :internal_server_error}
-          format.json {head :internal_server_error}
-        end
+      rescue => ex
+        render_error(ex.message)
       end
     end
 
@@ -91,6 +71,33 @@ module Georgia
         redirect_to :back, notice: 'Notification successfully sent.'
       else
         redirect_to :back, alert: 'Oups. Something went wrong. Message could not be delivered.'
+      end
+    end
+
+    private
+
+    def set_messages
+      ids = params[:id].split(',')
+      @messages = Georgia::Mailer::Message.where(id: ids)
+    end
+
+    def render_success success_message
+      @status_message = success_message
+      @status = :notice
+      respond_to do |format|
+        format.html { redirect_to :back, notice: @status_message }
+        format.js   { render layout: false }
+        format.json { render json: { ids: @messages.map(&:id), message: @status_message, status: @status } }
+      end
+    end
+
+    def render_error error_message
+      @status_message = error_message
+      @status = :alert
+      respond_to do |format|
+        format.html { redirect_to :back, alert: @status_message }
+        format.js   { render layout: false }
+        format.json { render json: { message: @status_message, status: @status } }
       end
     end
 
