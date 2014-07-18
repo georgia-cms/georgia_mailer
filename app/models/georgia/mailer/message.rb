@@ -5,6 +5,8 @@ module Georgia
       include Elasticsearch::Model
       include Elasticsearch::Model::Callbacks
 
+      include PublicActivity::Common
+
       delegate :url, :current_path, :size, :content_type, :filename, to: :attachment
 
       validates :name, presence: true
