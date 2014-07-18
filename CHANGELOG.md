@@ -1,3 +1,7 @@
+== 0.1.5
+
+- Namespace to Georgia::Mailer
+
 == 0.1.4
 
 - Sends emails only to those who wish to

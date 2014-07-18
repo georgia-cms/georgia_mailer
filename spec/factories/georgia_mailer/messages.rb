@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :georgia_mailer_message, class: GeorgiaMailer::Message do
+  factory :georgia_mailer_message, class: Georgia::Mailer::Message do
     name "Bob Bissonnette"
     email "bob@bissonnette.com"
     subject "About my apples"

@@ -1,4 +1,4 @@
-GeorgiaMailer::Engine.routes.draw do
+Georgia::Mailer::Engine.routes.draw do
 
   resources :messages, only: :create
 

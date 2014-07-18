@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe GeorgiaMailer::MessageDecorator do
+describe Georgia::Mailer::MessageDecorator do
 
-  subject {GeorgiaMailer::MessageDecorator.decorate(FactoryGirl.build(:georgia_mailer_message))}
+  subject {Georgia::Mailer::MessageDecorator.decorate(FactoryGirl.build(:georgia_mailer_message))}
 
   it {respond_to :phone_or_none}
   it {respond_to :subject_truncated}

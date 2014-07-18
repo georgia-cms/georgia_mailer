@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe GeorgiaMailer::Message do
+describe Georgia::Mailer::Message do
   specify {FactoryGirl.build(:georgia_mailer_message).should be_valid}
 
   it { should respond_to :name, :email, :subject, :message, :attachment }
@@ -16,9 +16,9 @@ describe GeorgiaMailer::Message do
   describe ".search" do
 
     it 'has an indexer extension' do
-      GeorgiaMailer::Message.should respond_to :search
+      Georgia::Mailer::Message.should respond_to :search
     end
-    
+
   end
 
 end

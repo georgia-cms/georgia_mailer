@@ -10,11 +10,11 @@ The install generator will add missing migrations and automatically migrate your
 If you selected ElasticSearch as your indexer with Tire, your index will be created.
 Finally, it will mount the engine in your routes.rb file under '/mailer'
 
-    rails generate georgia_mailer:install
+    rails generate georgia:mailer:install
 
 ### Heroku
 
-Generate GeorgiaMailer::Message index:
+Generate Georgia::Mailer::Message index:
 
     heroku run rake environment georgia:mailer:create_indices
 

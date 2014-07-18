@@ -2,32 +2,27 @@ source 'https://rubygems.org'
 gemspec
 
 group :development, :test do
-  gem 'tire'
-  gem 'sunspot_rails', '~> 2.0.0'
+  gem 'rails', '> 4.1'
+  gem 'georgia', path: '~/workspace/georgia'
+  gem 'pry'
+  gem 'pry-rails'
+  gem 'pry-debugger'
 end
 
 group :development do
   gem 'thin'
-  gem 'debugger'
-  gem 'foreman'
-  gem 'sunspot_solr', '~> 2.0.0'
   gem 'letter_opener'
 end
 
 group :test do
   gem 'sqlite3'
-  gem 'rspec-rails'
+  gem 'rspec-rails', '< 3'
   gem 'capybara'
   gem 'capybara-webkit'
   gem 'launchy'
   gem 'database_cleaner'
-  gem 'rb-inotify'
   gem 'factory_girl_rails'
   gem 'shoulda-matchers'
   gem 'simplecov'
-  gem 'brakeman'
-  gem 'rails_best_practices'
-  gem 'pry'
-  gem 'pry-rails'
   gem 'coveralls', require: false
 end
