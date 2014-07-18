@@ -3,7 +3,6 @@ gemspec
 
 group :development, :test do
   gem 'rails', '> 4.1'
-  gem 'georgia', path: '~/workspace/georgia'
   gem 'pry'
   gem 'pry-rails'
   gem 'pry-debugger'
