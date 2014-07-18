@@ -46,7 +46,7 @@ module Georgia
       end
 
       def self.policy_class
-        Georgia::Mailer::InboxPolicy
+        Georgia::Mailer::MailerPolicy
       end
 
     end
