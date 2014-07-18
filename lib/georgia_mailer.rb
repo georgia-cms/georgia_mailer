@@ -10,7 +10,7 @@ module Georgia
     # Add to Georgia by default
     Georgia.navigation += %w(messages)
 
-    Georgia.permissions.merge!(inbox: {
+    Georgia.permissions.merge!(mailer: {
       read_messages:          { communications: true,  admin: true, },
       print_messages:         { communications: true,  admin: true, },
       mark_messages_as_spam:  { communications: true,  admin: true, },
