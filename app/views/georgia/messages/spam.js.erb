@@ -1,3 +1,7 @@
+<% if @status_message and @status %>
+  new Flash('<%= @status_message %>', '<%= @status %>')
+<% end %>
+
 <% @messages.each do |m| %>
   $('tr#message_<%= m.id %>').remove()
 <% end -%>
