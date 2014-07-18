@@ -5,6 +5,7 @@ module Georgia
       def create
         @message = Message.new(message_params)
         if @message.save
+          Georgia::CreateActivity.new(@message, :create).call
           EmailDeliveryWorker.new.async.later(60, @message.id)
           SpamWorker.new.async.perform(@message.id)
           respond_to do |format|
