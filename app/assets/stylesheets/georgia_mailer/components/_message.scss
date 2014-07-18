@@ -26,13 +26,9 @@
   border-bottom: 1px solid #cbcbcb;
 }
 
-table tr > td.message-status {
-  width: 1px;
-  border-right: 3px solid;
-  padding: 0 !important;
-  margin: 0;
-  &.spam { border-color: $red; }
-  &.clean { border-color: $green; }
+td.status {
+  &.spam { border-right: 3px solid $red; }
+  &.clean { border-right: 3px solid $green; }
 }
 
 .message-name span {
