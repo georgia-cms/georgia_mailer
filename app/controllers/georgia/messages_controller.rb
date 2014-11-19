@@ -3,8 +3,13 @@ module Georgia
 
 
     def show
-      @message = Georgia::Mailer::Message.find(params[:id]).decorate
-      authorize @message
+      begin
+        @message = Georgia::Mailer::Message.find(params[:id]).decorate
+        authorize @message
+      rescue ActiveRecord::RecordNotFound
+        authorize Georgia::Mailer::Message
+        redirect_to search_messages_path, alert: 'This message could not be found.'
+      end
     end
 
     def index
