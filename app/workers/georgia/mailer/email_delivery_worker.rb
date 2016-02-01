@@ -7,7 +7,7 @@ module Georgia
         ActiveRecord::Base.connection_pool.with_connection do
           message = Message.find(message_id)
           unless message.spam or !Georgia::Mailer.turn_on_email_notifications
-            Notifier.new_message_notification(message).deliver
+            Notifier.new_message_notification(message).deliver_now
           end
         end
       end
