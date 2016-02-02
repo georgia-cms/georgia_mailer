@@ -4,8 +4,7 @@ gemspec
 group :development, :test do
   gem 'rails', '> 4.1'
   gem 'pry'
-  gem 'pry-rails'
-  gem 'pry-debugger'
+  gem 'pry-byebug'
 end
 
 group :development do

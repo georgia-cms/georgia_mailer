@@ -15,8 +15,8 @@ Gem::Specification.new do |s|
 
   s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.md"]
 
-  s.add_dependency "georgia"
-  s.add_dependency "rakismet"
-  s.add_dependency 'sucker_punch'
+  s.add_dependency "georgia", '~> 0.8'
+  s.add_dependency "rakismet", '~> 1.5'
+  s.add_dependency 'sucker_punch', '~> 1.6'
 
 end
