@@ -1,5 +1,5 @@
 module Georgia
   module Mailer
-    VERSION = "0.1.5"
+    VERSION = "0.8.0"
   end
 end
